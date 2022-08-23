@@ -1,7 +1,5 @@
 const router = require("express").Router();
-const { addCardPostController, getAllCardController } = require("../controllers/card.controller");
-
-router.post("/add", addCardPostController);
+const { getAllCardController } = require("../controllers/card.controller");
 
 router.get("/get", getAllCardController);
 

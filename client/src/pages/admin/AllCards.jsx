@@ -2,11 +2,11 @@ import { useContext } from "react";
 import Navbar from "../../components/Navbar";
 import { CommonData } from "../../contexts/CommonData";
 
-const SliderPage = () => {
-	const { isLoggedIn, data, error } = useContext(CommonData);
+const AllCards = () => {
+	const { data, error, handleDelete } = useContext(CommonData);
 	return (
 		<div>
-			<Navbar isLoggedIn={isLoggedIn} />
+			<Navbar />
 			{data.map((item) => (
 				<div className="single-card" key={item._id}>
 					<p>{item.img}</p>
@@ -19,4 +19,4 @@ const SliderPage = () => {
 	);
 };
 
-export default SliderPage;
+export default AllCards;

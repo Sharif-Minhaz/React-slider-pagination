@@ -4,7 +4,6 @@ const {
 	adminDelCardController,
 	adminLoginPostController,
 	adminPutCardController,
-	adminSignup,
 } = require("../controllers/admin.controller");
 
 router.post("/auth/login", adminLoginPostController);
