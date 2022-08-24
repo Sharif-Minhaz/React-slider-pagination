@@ -44,6 +44,15 @@ class SetAxios {
 		this.error = err;
 	};
 
+	auth = async (url, body) => {
+		try {
+			const response = await client.post(url, body);
+			return response;
+		} catch (err) {
+			this.errorHandler(err);
+		}
+	}
+
 	getData = async () => {
 		await this.fetchData("/api/card/get");
 		return { data: this.data, error: this.error };

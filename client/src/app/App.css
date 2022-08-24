@@ -15,8 +15,37 @@
 nav {
 	display: flex;
 	gap: 10px;
+	padding: 20px 30px;
+	background-color: rgb(242, 242, 242);
+	margin-bottom: 10px;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid rgb(226, 226, 226);
+	box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
 }
 
-.nav-link.active {
+nav .partition {
+	display: flex;
+	gap: 10px;
+}
+
+nav .nav-link {
+	text-decoration: none;
+}
+
+nav .nav-link.active {
 	color: red;
+}
+
+nav .btn {
+	padding: 8px 17px;
+	background-color: aqua;
+	border-radius: 50px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.container {
+	width: 1289px;
+	margin: auto;
 }

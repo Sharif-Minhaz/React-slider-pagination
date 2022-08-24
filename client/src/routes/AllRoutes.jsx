@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+import { CommonData } from "../contexts/CommonData";
 import AddCardPage from "../pages/admin/AddCardPage";
 import AdminLoginPage from "../pages/admin/AdminLoginPage";
 import AllCards from "../pages/admin/AllCards";
@@ -9,11 +11,12 @@ import SliderPage from "../pages/user/SliderPage";
 import Protected from "./Protected";
 
 const AllRoutes = () => {
+	const { isLoggedIn } = useContext(CommonData);
 	return (
 		<Routes>
 			<Route path="/" element={<SliderPage />} />
 			<Route path="/pagination" element={<PaginationPage />} />
-			<Route path="/login" element={<AdminLoginPage />} />
+			<Route path="/login" element={isLoggedIn ? <AllCards /> : <AdminLoginPage />} />
 			<Route
 				path="/admin/all"
 				element={
