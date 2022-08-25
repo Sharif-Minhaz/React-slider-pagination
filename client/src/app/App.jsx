@@ -22,13 +22,14 @@ const App = () => {
 	});
 
 	useEffect(() => {
-		handleReq
-			.getData()
+		Promise.all([handleReq.checkAdmin("/admin/auth/check"), handleReq.getData()])
 			.then((response) => {
-				setData(response.data);
-				setIsLoading(false);
+				console.log(response);
+				setIsLoggedIn(response?.[0]?.data?.isAdmin);
+				setData(response?.[1]?.data);
 			})
-			.catch((error) => errorHandler(error));
+			.catch((error) => errorHandler(error))
+			.finally(() => setIsLoading(false));
 	}, []);
 
 	const handleOnChange = (e) => {

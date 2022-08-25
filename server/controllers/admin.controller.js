@@ -1,6 +1,8 @@
 const Card = require("../models/card.model");
 const Admin = require("../models/admin.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { verifyUser } = require("../middlewares/verifyUser");
 
 // exports.adminSignup = async (req, res, next) => {
 // 	try {
@@ -19,11 +21,20 @@ const bcrypt = require("bcrypt");
 
 exports.adminLoginPostController = async (req, res, next) => {
 	const { username, password } = req.body;
+	const authenticated = verifyUser(req, res, next);
+	if (authenticated) return res.status(200).json({ msg: "Login successful", isAdmin: true });
 	try {
 		const admin = await Admin.findOne({ username });
 		if (admin) {
 			const match = await bcrypt.compare(password, admin.password);
 			if (match) {
+				const token = jwt.sign({ user: admin.username }, process.env.SECRET_KEY, {
+					expiresIn: "1h",
+				});
+				res.cookie("auth", token, {
+					httpOnly: true,
+					maxAge: 3600000,
+				});
 				return res.status(200).json({ msg: "Login successful", isAdmin: true });
 			} else {
 				return res.status(404).json({ msg: "Login failed", isAdmin: false });
@@ -37,30 +48,54 @@ exports.adminLoginPostController = async (req, res, next) => {
 
 exports.adminAddCardPostController = async (req, res, next) => {
 	const card = new Card(req.body);
-	try {
-		const newCard = await card.save();
-		res.status(201).json(newCard);
-	} catch (err) {
-		next(err);
+	const authenticated = verifyUser(req, res, next);
+	if (authenticated) {
+		try {
+			const newCard = await card.save();
+			res.status(201).json(newCard);
+		} catch (err) {
+			next(err);
+		}
+	} else {
+		res.status(403).json({ msg: "Not authorized." });
 	}
 };
 
 exports.adminDelCardController = async (req, res, next) => {
 	const { id } = req.params;
-	try {
-		const card = await Card.findByIdAndDelete(id);
-		res.status(200).json(card);
-	} catch (err) {
-		next(err);
+	const authenticated = verifyUser(req, res, next);
+	if (authenticated) {
+		try {
+			const card = await Card.findByIdAndDelete(id);
+			res.status(200).json(card);
+		} catch (err) {
+			next(err);
+		}
+	} else {
+		res.status(403).json({ msg: "Not authorized." });
 	}
 };
 
 exports.adminPutCardController = async (req, res, next) => {
 	const { id } = req.params;
-	try {
-		const card = await Card.findByIdAndUpdate(id, { $set: req.body }, { new: true });
-		res.status(200).json(card);
-	} catch (err) {
-		next(err);
+	const authenticated = verifyUser(req, res, next);
+	if (authenticated) {
+		try {
+			const card = await Card.findByIdAndUpdate(id, { $set: req.body }, { new: true });
+			res.status(200).json(card);
+		} catch (err) {
+			next(err);
+		}
+	} else {
+		res.status(403).json({ msg: "Not authorized." });
+	}
+};
+
+exports.verifyAdmin = (req, res, next) => {
+	const authenticated = verifyUser(req, res, next);
+	if (authenticated) {
+		res.status(200).json({ isAdmin: true });
+	} else {
+		res.status(200).json({ isAdmin: false });
 	}
 };

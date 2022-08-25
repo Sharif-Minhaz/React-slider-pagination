@@ -6,7 +6,7 @@ const SliderPage = () => {
 	const { isLoggedIn, data, error } = useContext(CommonData);
 	return (
 		<div>
-			<Navbar isLoggedIn={isLoggedIn} />
+			<Navbar />
 			{data.map((item) => (
 				<div className="single-card" key={item._id}>
 					<p>{item.img}</p>

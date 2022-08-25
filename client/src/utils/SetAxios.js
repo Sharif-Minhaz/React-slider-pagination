@@ -6,6 +6,15 @@ class SetAxios {
 		this.error = null;
 	}
 
+	checkAdmin = async (url) => {
+		try {
+			const response = await client.get(url);
+			return response;
+		} catch (err) {
+			this.errorHandler(err);
+		}
+	};
+
 	fetchData = async (url) => {
 		try {
 			const response = await client.get(url);
@@ -51,7 +60,7 @@ class SetAxios {
 		} catch (err) {
 			this.errorHandler(err);
 		}
-	}
+	};
 
 	getData = async () => {
 		await this.fetchData("/api/card/get");
