@@ -15,7 +15,7 @@ const AllRoutes = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<SliderPage />} />
-			<Route path="/pagination" element={<PaginationPage />} />
+			<Route path="/pagination" element={<PaginationPage itemsPerPage={3} />} />
 			<Route path="/login" element={isLoggedIn ? <AllCards /> : <AdminLoginPage />} />
 			<Route
 				path="/admin/all"

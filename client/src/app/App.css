@@ -10,7 +10,7 @@
 }
 
 .single-card {
-	/* max-width: 300px; */
+	max-width: 500px;
 	height: 96%;
 	width: calc(100% - 3px);
 	margin: auto;
@@ -55,11 +55,55 @@
 	bottom: 25px !important;
 }
 
+.pagination-style {
+	display: flex;
+	list-style: none;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.pagination-container {
+	padding: 7px 20px 0px 20px;
+}
+
+.pagination-style li {
+	border: 1px solid black;
+	border-right: 0px;
+}
+.pagination-style .next {
+	border-right: 1px solid black;
+}
+
+.pagination-style li a {
+	padding: 7px 10px;
+	cursor: pointer;
+	display: inline-block;
+	user-select: none;
+}
+
+.pagination-style .selected a {
+	color: red;
+}
+
+.pagination-style .disabled a {
+	cursor: not-allowed;
+	color: gray;
+}
+
+.pagination-style .disabled a:focus {
+	box-shadow: none;
+	outline: transparent;
+}
+
+.pagination-container .single-card:hover {
+	cursor: auto;
+}
+
 nav {
 	display: flex;
 	gap: 10px;
 	padding: 20px 30px;
-	background-color: rgb(242, 242, 242);
+	background-color: rgb(255, 255, 255); 
 	margin-bottom: 10px;
 	justify-content: space-between;
 	align-items: center;
@@ -106,4 +150,18 @@ nav .btn {
 
 .add-card form button {
 	cursor: pointer;
+}
+
+.actions {
+	display: flex;
+	gap: 10px;
+	padding-top: 20px;
+}
+
+.actions span {
+	cursor: pointer;
+	background-color: #50b3b3;
+	border-radius: 4px;
+	padding: 7px 11px;
+	color: white;
 }

@@ -7,14 +7,21 @@ const AllCards = () => {
 	return (
 		<div>
 			<Navbar />
-			{data.map((item) => (
-				<div className="single-card" key={item._id}>
-					<p>{item.img}</p>
-					<p>{item.title}</p>
-					<p>{item.des}</p>
-					<p>{item.time}</p>
-				</div>
-			))}
+			<div className="pagination-container">
+				{data &&
+					data.map((item) => (
+						<div key={item._id} className="single-card">
+							<img src={item.img} alt="img" />
+							<h3>{item.title}</h3>
+							<p className="des">{item.des}</p>
+							<p className="date-time">{item.time}</p>
+							<div className="actions">
+								<span>Edit</span>
+								<span>Delete</span>
+							</div>
+						</div>
+					))}
+			</div>
 		</div>
 	);
 };

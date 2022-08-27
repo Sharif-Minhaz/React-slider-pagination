@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "./user.css";
 
 const SliderPage = () => {
-	const { isLoggedIn, data, error } = useContext(CommonData);
+	const { data } = useContext(CommonData);
 	return (
 		<div>
 			<Navbar />
@@ -19,10 +19,21 @@ const SliderPage = () => {
 					spaceBetween={20}
 					slidesPerView={3}
 					navigation
-					// autoplay
+					autoplay
 					lazy
 					loop={true}
 					pagination={{ clickable: true }}
+					breakpoints={{
+						499: {
+							slidesPerView: 1,
+						},
+						640: {
+							slidesPerView: 2,
+						},
+						768: {
+							slidesPerView: 3,
+						},
+					}}
 				>
 					{data.map((item) => (
 						<SwiperSlide key={item._id}>
@@ -36,13 +47,6 @@ const SliderPage = () => {
 					))}
 				</Swiper>
 			</div>
-
-			{/* <Swiper spaceBetween={50} slidesPerView={3}>
-				<SwiperSlide>Slide 1</SwiperSlide>
-				<SwiperSlide>Slide 2</SwiperSlide>
-				<SwiperSlide>Slide 3</SwiperSlide>
-				<SwiperSlide>Slide 4</SwiperSlide>
-			</Swiper> */}
 		</div>
 	);
 };
