@@ -19,7 +19,7 @@ const SliderPage = () => {
 					spaceBetween={20}
 					slidesPerView={3}
 					navigation
-					autoplay
+					// autoplay
 					lazy
 					loop={true}
 					pagination={{ clickable: true }}

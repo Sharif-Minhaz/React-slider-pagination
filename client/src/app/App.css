@@ -5,8 +5,13 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+.swiper-slide {
+	height: auto !important;
+}
+
 .single-card {
 	/* max-width: 300px; */
+	height: 96%;
 	width: calc(100% - 3px);
 	margin: auto;
 	background-color: white;
@@ -41,6 +46,13 @@
 .single-card .date-time {
 	font-size: 14px;
 	color: rgb(172, 172, 172);
+}
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+	bottom: 25px !important;
 }
 
 nav {
