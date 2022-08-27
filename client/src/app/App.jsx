@@ -21,10 +21,16 @@ const App = () => {
 		password: "",
 	});
 
+	const [card, setCard] = useState({
+		cardImg: "",
+		cardTitle: "",
+		cardDes: "",
+		cardDateTime: "",
+	});
+
 	useEffect(() => {
 		Promise.all([handleReq.checkAdmin("/admin/auth/check"), handleReq.getData()])
 			.then((response) => {
-				console.log(response);
 				setIsLoggedIn(response?.[0]?.data?.isAdmin);
 				setData(response?.[1]?.data);
 			})
@@ -34,6 +40,10 @@ const App = () => {
 
 	const handleOnChange = (e) => {
 		setAdmin({ ...admin, [e.target.name]: e.target.value });
+	};
+
+	const handleCardChange = (e) => {
+		setCard({ ...card, [e.target.name]: e.target.value });
 	};
 
 	const handleSubmit = async (e) => {
@@ -75,6 +85,17 @@ const App = () => {
 		toast.success("Logout Successful");
 	};
 
+	const handleCardSubmit = (e) => {
+		console.log(card);
+		e.preventDefault();
+		handleReq
+			.addData("/admin/card/add", card)
+			.then((response) => {
+				setData([...data, response?.data]);
+			})
+			.catch((err) => errorHandler(err));
+	};
+
 	return (
 		<CommonData.Provider
 			value={{
@@ -87,6 +108,8 @@ const App = () => {
 				handleLogout,
 				handleOnChange,
 				handleSubmit,
+				handleCardChange,
+				handleCardSubmit,
 			}}
 		>
 			{isLoading ? "Loading please wait..." : <AllRoutes />}
