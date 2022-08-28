@@ -20,9 +20,12 @@ const { verifyUser } = require("../middlewares/verifyUser");
 // };
 
 exports.adminLoginPostController = async (req, res, next) => {
-	const { username, password } = req.body;
 	const authenticated = verifyUser(req, res, next);
-	if (authenticated) return res.status(200).json({ msg: "Login successful", isAdmin: true });
+
+	const { username, password } = req.body;
+
+	if (authenticated) return res.status(200).json({ msg: "success", isAdmin: true });
+
 	try {
 		const admin = await Admin.findOne({ username });
 		if (admin) {
@@ -35,12 +38,12 @@ exports.adminLoginPostController = async (req, res, next) => {
 					httpOnly: true,
 					maxAge: 3600000,
 				});
-				return res.status(200).json({ msg: "Login successful", isAdmin: true });
+				return res.status(200).json({ msg: "success", isAdmin: true });
 			} else {
-				return res.status(404).json({ msg: "Login failed", isAdmin: false });
+				return res.status(200).json({ msg: "failed", isAdmin: false });
 			}
 		}
-		res.status(404).json({ msg: "Login failed", isAdmin: false });
+		res.status(200).json({ msg: "failed", isAdmin: false });
 	} catch (err) {
 		next(err);
 	}

@@ -6,9 +6,10 @@ const {
 	adminPutCardController,
 	verifyAdmin,
 } = require("../controllers/admin.controller");
+const { adminValidator } = require("../validator/admin.validator");
 
 // router.post("/auth/signup", adminSignup);
-router.post("/auth/login", adminLoginPostController);
+router.post("/auth/login", adminValidator, adminLoginPostController);
 router.get("/auth/check", verifyAdmin);
 
 router.post("/card/add", adminAddCardPostController);

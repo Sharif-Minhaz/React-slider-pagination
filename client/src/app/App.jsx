@@ -14,7 +14,7 @@ const App = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [data, setData] = useState([]);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState({});
 
 	const [admin, setAdmin] = useState({
 		username: "",
@@ -32,9 +32,10 @@ const App = () => {
 		Promise.all([handleReq.checkAdmin("/admin/auth/check"), handleReq.getData()])
 			.then((response) => {
 				setIsLoggedIn(response?.[0]?.data?.isAdmin);
+				// setIsLoggedIn(true);
 				setData(response?.[1]?.data);
 			})
-			.catch((error) => errorHandler(error))
+			.catch((err) => errorHandler(err))
 			.finally(() => setIsLoading(false));
 	}, []);
 
@@ -54,12 +55,17 @@ const App = () => {
 				setIsLoggedIn(response.data.isAdmin);
 				navigate("/admin/all");
 				toast.success(response.data.msg);
+				setAdmin({ username: "", password: "" });
+				setError({ ...error, username: "", password: "", loginError: false });
 			} else {
-				console.error("Wrong credentials!");
-				toast.error("Wrong credentials!");
+				setError(response.data?.error);
+				response.data?.msg === "failed" &&
+					setError({ ...error, password: "", loginError: true });
+				response.data?.msg !== "invalid" && toast.error("Invalid credentials!");
+				setAdmin({ ...admin, password: "" });
 			}
-		} catch (error) {
-			errorHandler(error);
+		} catch (err) {
+			errorHandler(err);
 		}
 	};
 
@@ -68,14 +74,14 @@ const App = () => {
 			await handleReq.deleteData(`/admin/card/del/${id}`);
 			const response = await handleReq.getData();
 			setData(response.data);
-		} catch (error) {
-			errorHandler(error);
+		} catch (err) {
+			errorHandler(err);
 		}
 	};
 
-	const errorHandler = (error) => {
-		console.error(error);
-		setError(error);
+	const errorHandler = (err) => {
+		console.error(err);
+		setError({ ...error, sysError: err });
 		setIsLoading(false);
 	};
 

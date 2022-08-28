@@ -82,7 +82,7 @@
 }
 
 .pagination-style .selected a {
-	color: red;
+	color: rgb(240, 40, 137);
 }
 
 .pagination-style .disabled a {
@@ -95,7 +95,7 @@
 	outline: transparent;
 }
 
-.pagination-container .single-card:hover {
+.pagination-container .single-card {
 	cursor: auto;
 }
 
@@ -103,7 +103,7 @@ nav {
 	display: flex;
 	gap: 10px;
 	padding: 20px 30px;
-	background-color: rgb(255, 255, 255); 
+	background-color: rgb(255, 255, 255);
 	margin-bottom: 10px;
 	justify-content: space-between;
 	align-items: center;
@@ -121,12 +121,12 @@ nav .nav-link {
 }
 
 nav .nav-link.active {
-	color: red;
+	color: rgb(240, 40, 137);
 }
 
 nav .btn {
 	padding: 8px 17px;
-	background-color: aqua;
+	background-color: #4bfdfd;
 	border-radius: 50px;
 	cursor: pointer;
 	user-select: none;
@@ -164,4 +164,69 @@ nav .btn {
 	border-radius: 4px;
 	padding: 7px 11px;
 	color: white;
+}
+
+/* login form */
+.login-form {
+	max-width: 500px;
+	/* margin: auto; */
+	padding: 20px;
+	box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px,
+		rgb(0 0 0 / 12%) 0px 1px 10px 0px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	gap: 19px;
+}
+
+.login-form input {
+	padding: 12px 13px;
+	font-size: 16px;
+	border: 1px solid rgb(182, 182, 182);
+	border-radius: 4px;
+}
+.login-form h1 {
+	margin-bottom: 2px;
+	text-transform: uppercase;
+	color: rgb(117, 117, 117);
+	text-align: center;
+}
+.login-form button {
+	padding: 10px;
+	font-size: 18px;
+	text-transform: uppercase;
+	cursor: pointer;
+	background-color: #50b3b3;
+	color: aliceblue;
+	border-radius: 3px;
+	border-color: transparent;
+}
+.login-form input:active,
+.login-form input:focus {
+	border-color: #50b3b3;
+	box-shadow: none;
+	outline: none;
+}
+
+.login-form button:active,
+.login-form button:focus {
+	border-color: #4fbbc1;
+	box-shadow: none;
+	outline: none;
+}
+
+.form-container {
+	display: flex;
+	align-items: center;
+	height: calc(100vh - 147px);
+	justify-content: center;
+}
+
+.is-invalid {
+	border-color: red !important;
+}
+
+.invalid-feedback {
+	color: red;
+	margin-top: -10px;
 }
