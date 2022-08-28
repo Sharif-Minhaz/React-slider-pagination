@@ -1,15 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import { CommonData } from "../../contexts/CommonData";
 
 const AddCardPage = () => {
-	const { card, error, handleCardChange, handleCardSubmit } = useContext(CommonData);
+	const { card, error, setError, handleCardChange, handleCardSubmit } = useContext(CommonData);
+
+	useEffect(() => {
+		setError({ ...error, img: "", title: "", des: "" });
+	}, []);
+
 	return (
 		<>
 			<Navbar />
 			<div className="p-x">
 				<form className="add-card-form" onSubmit={handleCardSubmit}>
 					<h1>Add new card</h1>
+					{card.img && <img src={card.img} alt="card-img" />}
 					<input
 						className={error?.img ? "is-invalid" : ""}
 						onChange={handleCardChange}
@@ -34,7 +40,7 @@ const AddCardPage = () => {
 						className={error?.des ? "is-invalid" : ""}
 						name="des"
 						cols="60"
-						rows="10"
+						rows="6"
 						placeholder="Enter card description"
 						onChange={handleCardChange}
 						// required

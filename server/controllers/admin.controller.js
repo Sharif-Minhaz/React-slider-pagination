@@ -52,8 +52,7 @@ exports.adminLoginPostController = async (req, res, next) => {
 exports.adminAddCardPostController = async (req, res, next) => {
 	const card = new Card(req.body);
 	const authenticated = verifyUser(req, res, next);
-	if (!authenticated) {
-		// TODO: remove ! later
+	if (authenticated) {
 		try {
 			const newCard = await card.save();
 			res.status(201).json({ msg: "success", newCard });
@@ -83,10 +82,10 @@ exports.adminDelCardController = async (req, res, next) => {
 exports.adminPutCardController = async (req, res, next) => {
 	const { id } = req.params;
 	const authenticated = verifyUser(req, res, next);
-	if (authenticated) {
+	if (!authenticated) {
 		try {
 			const card = await Card.findByIdAndUpdate(id, { $set: req.body }, { new: true });
-			res.status(200).json(card);
+			res.status(200).json({ msg: "success", card });
 		} catch (err) {
 			next(err);
 		}

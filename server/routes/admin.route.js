@@ -15,6 +15,6 @@ router.get("/auth/check", verifyAdmin);
 
 router.post("/card/add", cardValidator, adminAddCardPostController);
 router.delete("/card/del/:id", adminDelCardController);
-router.put("/card/update/:id", adminPutCardController);
+router.put("/card/update/:id", cardValidator, adminPutCardController);
 
 module.exports = router;

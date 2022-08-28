@@ -34,7 +34,7 @@ const AllRoutes = () => {
 				}
 			/>
 			<Route
-				path="/admin/update-card"
+				path="/admin/update-card/:id"
 				element={
 					<Protected>
 						<UpdateCardPage />

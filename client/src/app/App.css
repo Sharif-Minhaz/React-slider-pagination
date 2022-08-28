@@ -33,7 +33,7 @@
 	margin-top: 10px;
 }
 
-.single-card img {
+.single-card img, .edit-img {
 	width: 100%;
 	height: 215px;
 	object-fit: cover;
@@ -154,7 +154,9 @@ nav .btn {
 	padding: 7px 11px;
 	color: white;
 }
-
+.actions span:last-child {
+	background-color: #ef4646;
+}
 /* login form and add card form sections */
 .p-x {
 	padding: 0px 20px 0px 20px;
@@ -174,6 +176,7 @@ nav .btn {
 
 .add-card-form {
 	margin: auto;
+	margin-bottom: 20px;
 	margin-top: 20px;
 }
 
@@ -234,6 +237,18 @@ nav .btn {
 	align-items: center;
 	height: calc(100vh - 147px);
 	justify-content: center;
+}
+form.update {
+	margin-bottom: 20px;
+}
+form.update .update-btns button {
+	font-size: 15px;
+	padding: 7px 11px;
+}
+form.update .update-btns button:first-child {
+	margin-right: 15px;
+	background-color: rgb(0, 255, 166);
+	color: white;
 }
 
 /* validation styles */

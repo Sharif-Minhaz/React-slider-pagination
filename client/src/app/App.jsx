@@ -29,6 +29,12 @@ const App = () => {
 
 	const [card, setCard] = useState(initCardValue);
 
+	const errorHandler = (err) => {
+		console.error(err);
+		setError({ ...error, sysError: err });
+		setIsLoading(false);
+	};
+
 	useEffect(() => {
 		Promise.all([handleReq.checkAdmin("/admin/auth/check"), handleReq.getData()])
 			.then((response) => {
@@ -40,6 +46,7 @@ const App = () => {
 			})
 			.catch((err) => errorHandler(err))
 			.finally(() => setIsLoading(false));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleOnChange = (e) => {
@@ -86,12 +93,6 @@ const App = () => {
 		}
 	};
 
-	const errorHandler = (err) => {
-		console.error(err);
-		setError({ ...error, sysError: err });
-		setIsLoading(false);
-	};
-
 	const handleLogout = () => {
 		setIsLoggedIn(false);
 		navigate("/", { replace: true });
@@ -106,7 +107,7 @@ const App = () => {
 				if (response?.data?.msg === "invalid") {
 					return setError({ ...error, ...response?.data?.error });
 				}
-				setError({ ...error, img: "", title: "", des: "" });
+				setError({ ...error, ...initCardValue });
 				reFetchData();
 				setCard(initCardValue);
 				toast.success("New card added successfully");
@@ -114,12 +115,19 @@ const App = () => {
 			.catch((err) => errorHandler(err));
 	};
 
-	const handleCardEdit = () => {
-		alert("pressed");
-	};
-
-	const handleUpdateCardSubmit = () => {
-		reFetchData();
+	const handleUpdateCardSubmit = (id, body) => {
+		handleReq
+			.updateData(`/admin/card/update/${id}`, body)
+			.then((response) => {
+				if (response.data?.msg === "success") {
+					reFetchData();
+					toast.success("Card updated successfully");
+					setError({ ...error, ...initCardValue });
+				} else if (response.data?.msg === "invalid") {
+					setError({ ...error, ...response.data?.error });
+				}
+			})
+			.catch((err) => errorHandler(err));
 	};
 
 	const reFetchData = () => {
@@ -139,6 +147,7 @@ const App = () => {
 				error,
 				admin,
 				isLoggedIn,
+				setError,
 				setIsLoggedIn,
 				handleDelete,
 				handleLogout,
@@ -146,7 +155,6 @@ const App = () => {
 				handleSubmit,
 				handleCardChange,
 				handleCardSubmit,
-				handleCardEdit,
 				handleUpdateCardSubmit,
 			}}
 		>
