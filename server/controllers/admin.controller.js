@@ -52,15 +52,16 @@ exports.adminLoginPostController = async (req, res, next) => {
 exports.adminAddCardPostController = async (req, res, next) => {
 	const card = new Card(req.body);
 	const authenticated = verifyUser(req, res, next);
-	if (authenticated) {
+	if (!authenticated) {
+		// TODO: remove ! later
 		try {
 			const newCard = await card.save();
-			res.status(201).json(newCard);
+			res.status(201).json({ msg: "success", newCard });
 		} catch (err) {
 			next(err);
 		}
 	} else {
-		res.status(403).json({ msg: "Not authorized." });
+		res.status(200).json({ msg: "unauthorized" });
 	}
 };
 

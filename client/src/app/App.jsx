@@ -9,6 +9,11 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 
 const handleReq = new SetAxios();
+const initCardValue = {
+	img: "",
+	title: "",
+	des: "",
+};
 
 const App = () => {
 	const navigate = useNavigate();
@@ -22,18 +27,15 @@ const App = () => {
 		password: "",
 	});
 
-	const [card, setCard] = useState({
-		cardImg: "",
-		cardTitle: "",
-		cardDes: "",
-		cardDateTime: "",
-	});
+	const [card, setCard] = useState(initCardValue);
 
 	useEffect(() => {
 		Promise.all([handleReq.checkAdmin("/admin/auth/check"), handleReq.getData()])
 			.then((response) => {
 				setIsLoggedIn(response?.[0]?.data?.isAdmin);
-				// setIsLoggedIn(true);
+
+				setIsLoggedIn(true); //TODO: must be removed later
+
 				setData(response?.[1]?.data);
 			})
 			.catch((err) => errorHandler(err))
@@ -55,11 +57,11 @@ const App = () => {
 			if (response?.data?.isAdmin) {
 				setIsLoggedIn(response.data.isAdmin);
 				navigate("/admin/all");
-				toast.success(response.data.msg);
+				toast.success("Login successful");
 				setAdmin({ username: "", password: "" });
 				setError({ ...error, username: "", password: "", loginError: false });
 			} else {
-				setError(response.data?.error);
+				setError({ ...error, ...response.data?.error });
 				response.data?.msg === "failed" &&
 					setError({ ...error, password: "", loginError: true });
 				response.data?.msg !== "invalid" && toast.error("Invalid credentials!");
@@ -72,9 +74,13 @@ const App = () => {
 
 	const handleDelete = async (id) => {
 		try {
-			await handleReq.deleteData(`/admin/card/del/${id}`);
-			const response = await handleReq.getData();
-			setData(response.data);
+			const deletion = await handleReq.deleteData(`/admin/card/del/${id}`);
+			if (deletion?.data) {
+				const response = await handleReq.getData();
+				setData(response.data);
+				return toast.success("Card deleted successfully");
+			}
+			toast.error("Not authenticated for this action");
 		} catch (err) {
 			errorHandler(err);
 		}
@@ -93,12 +99,34 @@ const App = () => {
 	};
 
 	const handleCardSubmit = (e) => {
-		console.log(card);
 		e.preventDefault();
 		handleReq
 			.addData("/admin/card/add", card)
 			.then((response) => {
-				setData([...data, response?.data]);
+				if (response?.data?.msg === "invalid") {
+					return setError({ ...error, ...response?.data?.error });
+				}
+				setError({ ...error, img: "", title: "", des: "" });
+				reFetchData();
+				setCard(initCardValue);
+				toast.success("New card added successfully");
+			})
+			.catch((err) => errorHandler(err));
+	};
+
+	const handleCardEdit = () => {
+		alert("pressed");
+	};
+
+	const handleUpdateCardSubmit = () => {
+		reFetchData();
+	};
+
+	const reFetchData = () => {
+		handleReq
+			.getData()
+			.then((response) => {
+				setData(response.data);
 			})
 			.catch((err) => errorHandler(err));
 	};
@@ -106,6 +134,7 @@ const App = () => {
 	return (
 		<CommonData.Provider
 			value={{
+				card,
 				data,
 				error,
 				admin,
@@ -117,6 +146,8 @@ const App = () => {
 				handleSubmit,
 				handleCardChange,
 				handleCardSubmit,
+				handleCardEdit,
+				handleUpdateCardSubmit,
 			}}
 		>
 			{isLoading ? <Loading /> : <AllRoutes />}

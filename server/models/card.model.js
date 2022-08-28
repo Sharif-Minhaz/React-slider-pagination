@@ -15,8 +15,8 @@ const cardSchema = new Schema(
 			required: true,
 		},
 		time: {
-			type: String,
-			required: true,
+			type: Date,
+			default: new Date(),
 		},
 	},
 	{ timestamps: true }

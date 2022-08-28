@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import { CommonData } from "../../contexts/CommonData";
 import ReactPaginate from "react-paginate";
 import Items from "./Items";
+import moment from "moment";
 
 const PaginationPage = ({ itemsPerPage }) => {
 	const { data } = useContext(CommonData);
@@ -15,6 +16,9 @@ const PaginationPage = ({ itemsPerPage }) => {
 
 	useEffect(() => {
 		const endOffset = itemOffset + itemsPerPage;
+		items.forEach((item) => {
+			item.time = moment(item.time).format("lll");
+		});
 		setCurrentItems(items.slice(itemOffset, endOffset));
 		setPageCount(Math.ceil(items.length / itemsPerPage));
 	}, [itemOffset, itemsPerPage, items]);

@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import { CommonData } from "../../contexts/CommonData";
 import { Navigation, Pagination, Autoplay, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import moment from "moment";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -41,7 +42,7 @@ const SliderPage = () => {
 								<img src={item.img} alt="img" />
 								<h3>{item.title}</h3>
 								<p className="des">{item.des}</p>
-								<p className="date-time">{item.time}</p>
+								<p className="date-time">{moment(item.time).format("lll")}</p>
 							</div>
 						</SwiperSlide>
 					))}

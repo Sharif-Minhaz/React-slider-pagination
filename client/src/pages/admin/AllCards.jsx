@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import Navbar from "../../components/Navbar";
 import { CommonData } from "../../contexts/CommonData";
+import moment from "moment";
 
 const AllCards = () => {
-	const { data, error, handleDelete } = useContext(CommonData);
+	const { data, handleDelete, handleCardEdit } = useContext(CommonData);
 	return (
 		<div>
 			<Navbar />
@@ -14,10 +15,10 @@ const AllCards = () => {
 							<img src={item.img} alt="img" />
 							<h3>{item.title}</h3>
 							<p className="des">{item.des}</p>
-							<p className="date-time">{item.time}</p>
+							<p className="date-time">{moment(item.time).format("lll")}</p>
 							<div className="actions">
-								<span>Edit</span>
-								<span>Delete</span>
+								<span onClick={() => handleCardEdit(item._id)}>Edit</span>
+								<span onClick={() => handleDelete(item._id)}>Delete</span>
 							</div>
 						</div>
 					))}

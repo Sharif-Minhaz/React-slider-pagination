@@ -28,6 +28,7 @@ class SetAxios {
 		try {
 			const response = await client.post(url, body);
 			this.data = [...this.data, response.data];
+			return response;
 		} catch (err) {
 			this.errorHandler(err);
 		}
@@ -35,7 +36,8 @@ class SetAxios {
 
 	updateData = async (url, body) => {
 		try {
-			await client.put(url, body);
+			const response = await client.put(url, body);
+			return response;
 		} catch (err) {
 			this.errorHandler(err);
 		}
@@ -43,7 +45,8 @@ class SetAxios {
 
 	deleteData = async (url) => {
 		try {
-			await client.delete(url);
+			const response = await client.delete(url);
+			return response;
 		} catch (err) {
 			this.errorHandler(err);
 		}

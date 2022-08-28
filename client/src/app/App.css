@@ -141,17 +141,6 @@ nav .btn {
 	padding: 10px 20px;
 }
 
-.add-card form {
-	width: 400px;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-}
-
-.add-card form button {
-	cursor: pointer;
-}
-
 .actions {
 	display: flex;
 	gap: 10px;
@@ -166,10 +155,14 @@ nav .btn {
 	color: white;
 }
 
-/* login form */
-.login-form {
+/* login form and add card form sections */
+.p-x {
+	padding: 0px 20px 0px 20px;
+}
+
+.login-form,
+.add-card-form {
 	max-width: 500px;
-	/* margin: auto; */
 	padding: 20px;
 	box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px,
 		rgb(0 0 0 / 12%) 0px 1px 10px 0px;
@@ -179,19 +172,34 @@ nav .btn {
 	gap: 19px;
 }
 
-.login-form input {
+.add-card-form {
+	margin: auto;
+	margin-top: 20px;
+}
+
+.login-form input,
+.add-card-form input,
+.add-card-form textarea {
 	padding: 12px 13px;
 	font-size: 16px;
 	border: 1px solid rgb(182, 182, 182);
 	border-radius: 4px;
 }
-.login-form h1 {
+
+.add-card-form textarea {
+	font-size: 14px;
+	resize: vertical;
+}
+
+.login-form h1,
+.add-card-form h1 {
 	margin-bottom: 2px;
 	text-transform: uppercase;
 	color: rgb(117, 117, 117);
 	text-align: center;
 }
-.login-form button {
+.login-form button,
+.add-card-form button {
 	padding: 10px;
 	font-size: 18px;
 	text-transform: uppercase;
@@ -202,14 +210,20 @@ nav .btn {
 	border-color: transparent;
 }
 .login-form input:active,
-.login-form input:focus {
+.login-form input:focus,
+.add-card-form input:active,
+.add-card-form input:focus,
+.add-card-form textarea:active,
+.add-card-form textarea:focus {
 	border-color: #50b3b3;
 	box-shadow: none;
 	outline: none;
 }
 
 .login-form button:active,
-.login-form button:focus {
+.login-form button:focus,
+.add-card-form button:active,
+.add-card-form input:focus {
 	border-color: #4fbbc1;
 	box-shadow: none;
 	outline: none;
@@ -222,6 +236,7 @@ nav .btn {
 	justify-content: center;
 }
 
+/* validation styles */
 .is-invalid {
 	border-color: red !important;
 }
@@ -231,6 +246,7 @@ nav .btn {
 	margin-top: -10px;
 }
 
+/* loading page */
 .loading-page {
 	height: 100vh;
 	width: 100%;
