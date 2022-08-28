@@ -6,6 +6,7 @@ import SetAxios from "../utils/SetAxios";
 import AllRoutes from "../routes/AllRoutes";
 import { CommonData } from "../contexts/CommonData";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const handleReq = new SetAxios();
 
@@ -118,7 +119,7 @@ const App = () => {
 				handleCardSubmit,
 			}}
 		>
-			{isLoading ? "Loading please wait..." : <AllRoutes />}
+			{isLoading ? <Loading /> : <AllRoutes />}
 			<ToastContainer autoClose={4000} />
 		</CommonData.Provider>
 	);
