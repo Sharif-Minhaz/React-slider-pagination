@@ -106,6 +106,8 @@ const App = () => {
 			.then((response) => {
 				if (response?.data?.msg === "invalid") {
 					return setError({ ...error, ...response?.data?.error });
+				} else if (response?.data?.msg === "unauthorized") {
+					return toast.error("Not authorized for this action");
 				}
 				setError({ ...error, ...initCardValue });
 				reFetchData();
