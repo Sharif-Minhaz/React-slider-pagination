@@ -269,3 +269,17 @@ form.update .update-btns button:first-child {
 	align-items: center;
 	justify-content: center;
 }
+
+.load-more-div {
+	text-align: center;
+}
+.load-more-div button {
+	margin-bottom: 20px;
+	background-color: #479c9f;
+	padding: 8px 15px;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}

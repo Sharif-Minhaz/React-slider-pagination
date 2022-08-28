@@ -87,7 +87,7 @@ const App = () => {
 				setData(response.data);
 				return toast.success("Card deleted successfully");
 			}
-			toast.error("Not authenticated for this action");
+			toast.error("Not authorized for this action");
 		} catch (err) {
 			errorHandler(err);
 		}
@@ -119,13 +119,15 @@ const App = () => {
 		handleReq
 			.updateData(`/admin/card/update/${id}`, body)
 			.then((response) => {
-				if (response.data?.msg === "success") {
+				if (response?.data?.msg === "success") {
 					reFetchData();
 					toast.success("Card updated successfully");
-					setError({ ...error, ...initCardValue });
-				} else if (response.data?.msg === "invalid") {
-					setError({ ...error, ...response.data?.error });
+					return setError({ ...error, ...initCardValue });
+				} else if (response?.data?.msg === "invalid") {
+					return setError({ ...error, ...response.data?.error });
 				}
+
+				toast.error("Not authorized for this action");
 			})
 			.catch((err) => errorHandler(err));
 	};
