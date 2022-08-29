@@ -36,7 +36,7 @@ exports.adminLoginPostController = async (req, res, next) => {
 				});
 				res.cookie("auth", token, {
 					httpOnly: true,
-					maxAge: 3600000,
+					expires: new Date(Date.now() + 3600000),
 				});
 				return res.status(200).json({ msg: "success", isAdmin: true });
 			} else {
@@ -82,7 +82,7 @@ exports.adminDelCardController = async (req, res, next) => {
 exports.adminPutCardController = async (req, res, next) => {
 	const { id } = req.params;
 	const authenticated = verifyUser(req, res, next);
-	if (!authenticated) {
+	if (authenticated) {
 		try {
 			const card = await Card.findByIdAndUpdate(id, { $set: req.body }, { new: true });
 			res.status(200).json({ msg: "success", card });

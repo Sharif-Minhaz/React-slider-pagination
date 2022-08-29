@@ -58,7 +58,7 @@ class SetAxios {
 
 	auth = async (url, body) => {
 		try {
-			const response = await client.post(url, body);
+			const response = await client.post(url, body, { withCredentials: true });
 			return response;
 		} catch (err) {
 			this.errorHandler(err);

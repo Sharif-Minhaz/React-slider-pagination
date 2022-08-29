@@ -236,8 +236,9 @@ nav .btn {
 .form-container {
 	display: flex;
 	align-items: center;
-	height: calc(100vh - 147px);
+	min-height: calc(100vh - 147px);
 	justify-content: center;
+	padding: 10px 20px 20px 20px;
 }
 form.update {
 	margin-bottom: 20px;

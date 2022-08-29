@@ -39,9 +39,6 @@ const App = () => {
 		Promise.all([handleReq.checkAdmin("/admin/auth/check"), handleReq.getData()])
 			.then((response) => {
 				setIsLoggedIn(response?.[0]?.data?.isAdmin);
-
-				setIsLoggedIn(true); //TODO: must be removed later
-
 				setData(response?.[1]?.data);
 			})
 			.catch((err) => errorHandler(err))
@@ -68,7 +65,7 @@ const App = () => {
 				setAdmin({ username: "", password: "" });
 				setError({ ...error, username: "", password: "", loginError: false });
 			} else {
-				setError({ ...error, ...response.data?.error });
+				setError({ ...error, ...response?.data?.error });
 				response.data?.msg === "failed" &&
 					setError({ ...error, password: "", loginError: true });
 				response.data?.msg !== "invalid" && toast.error("Invalid credentials!");
