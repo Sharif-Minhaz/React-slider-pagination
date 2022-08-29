@@ -124,6 +124,7 @@ const App = () => {
 				if (response?.data?.msg === "success") {
 					reFetchData();
 					toast.success("Card updated successfully");
+					navigate("/admin/all")
 					return setError({ ...error, ...initCardValue });
 				} else if (response?.data?.msg === "invalid") {
 					return setError({ ...error, ...response.data?.error });

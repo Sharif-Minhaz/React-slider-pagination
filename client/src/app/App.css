@@ -33,7 +33,8 @@
 	margin-top: 10px;
 }
 
-.single-card img, .edit-img {
+.single-card img,
+.edit-img {
 	width: 100%;
 	height: 215px;
 	object-fit: cover;
@@ -273,7 +274,8 @@ form.update .update-btns button:first-child {
 .load-more-div {
 	text-align: center;
 }
-.load-more-div button {
+.load-more-div button,
+.page-not-found button {
 	margin-bottom: 20px;
 	background-color: #479c9f;
 	padding: 8px 15px;
@@ -282,4 +284,23 @@ form.update .update-btns button:first-child {
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 16px;
+}
+
+.page-not-found {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	flex-direction: column;
+	height: calc(100vh - 90px);
+}
+.page-not-found h1 {
+	font-size: 55px;
+	text-transform: uppercase;
+}
+
+@media (max-width: 667px) {
+	.page-not-found h1 {
+		font-size: 40px;
+	}
 }

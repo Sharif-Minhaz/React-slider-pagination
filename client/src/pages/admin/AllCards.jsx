@@ -23,13 +23,13 @@ const AllCards = () => {
 	};
 
 	return (
-		<div>
+		<>
 			<Navbar />
 			<div className="pagination-container">
 				{cardData &&
 					cardData.map((item) => (
 						<div key={item._id} className="single-card">
-							<img src={item.img} alt="img" />
+							<img src={item.img} alt="itemImg" />
 							<h3>{item.title}</h3>
 							<p className="des">{item.des}</p>
 							<p className="date-time">{moment(item.time).format("lll")}</p>
@@ -53,7 +53,7 @@ const AllCards = () => {
 					<button onClick={handleLoadMore}>Load more ⇲</button>
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 

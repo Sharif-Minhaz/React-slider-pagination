@@ -82,7 +82,7 @@ exports.adminDelCardController = async (req, res, next) => {
 exports.adminPutCardController = async (req, res, next) => {
 	const { id } = req.params;
 	const authenticated = verifyUser(req, res, next);
-	if (authenticated) {
+	if (!authenticated) {
 		try {
 			const card = await Card.findByIdAndUpdate(id, { $set: req.body }, { new: true });
 			res.status(200).json({ msg: "success", card });
