@@ -65,6 +65,15 @@ class SetAxios {
 		}
 	};
 
+	logout = async (url) => {
+		try {
+			const response = await client.get(url);
+			return response;
+		} catch (err) {
+			this.errorHandler(err);
+		}
+	};
+
 	getData = async () => {
 		await this.fetchData("/api/card/get");
 		return { data: this.data, error: this.error };

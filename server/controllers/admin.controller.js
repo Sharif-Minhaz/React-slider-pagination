@@ -90,15 +90,23 @@ exports.adminPutCardController = async (req, res, next) => {
 			next(err);
 		}
 	} else {
-		res.status(403).json({ msg: "Not authorized." });
+		res.status(200).json({ msg: "unauthorized." });
+	}
+};
+
+exports.adminLogoutGetController = (req, res, next) => {
+	const authenticated = verifyUser(req, res, next);
+	if (authenticated) {
+		res.clearCookie("auth");
+		res.status(200).json({ msg: "success" });
+	} else {
+		res.status(200).json({ msg: "unauthorized." });
 	}
 };
 
 exports.verifyAdmin = (req, res, next) => {
 	const authenticated = verifyUser(req, res, next);
-	if (authenticated) {
-		res.status(200).json({ isAdmin: true });
-	} else {
-		res.status(200).json({ isAdmin: false });
-	}
+	authenticated
+		? res.status(200).json({ isAdmin: true })
+		: res.status(200).json({ isAdmin: false });
 };

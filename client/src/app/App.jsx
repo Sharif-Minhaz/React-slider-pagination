@@ -90,10 +90,19 @@ const App = () => {
 		}
 	};
 
-	const handleLogout = () => {
-		setIsLoggedIn(false);
-		navigate("/", { replace: true });
-		toast.success("Logout Successful");
+	const handleLogout = async () => {
+		try {
+			const response = await handleReq.logout("/admin/auth/logout");
+			console.log(response);
+			if (response?.data?.msg === "success") {
+				setIsLoggedIn(false);
+				navigate("/", { replace: true });
+				return toast.success("Logout Successful");
+			}
+			toast.error("Something went wrong");
+		} catch (err) {
+			errorHandler(err);
+		}
 	};
 
 	const handleCardSubmit = (e) => {
@@ -121,7 +130,7 @@ const App = () => {
 				if (response?.data?.msg === "success") {
 					reFetchData();
 					toast.success("Card updated successfully");
-					navigate("/admin/all")
+					navigate("/admin/all");
 					return setError({ ...error, ...initCardValue });
 				} else if (response?.data?.msg === "invalid") {
 					return setError({ ...error, ...response.data?.error });
